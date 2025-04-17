@@ -15,6 +15,7 @@ export default function BookingConfirmationPage() {
   const date = searchParams.get('date');
   const startTime = searchParams.get('startTime');
   const endTime = searchParams.get('endTime');
+  const numberOfPeople = searchParams.get('numberOfPeople');
 
   const handleConfirmBooking = () => {
     alert('Booking confirmed!');
@@ -38,6 +39,7 @@ export default function BookingConfirmationPage() {
           <p>Date: {date}</p>
           <p>Start Time: {startTime}</p>
           <p>End Time: {endTime}</p>
+          <p>Number of People: {numberOfPeople}</p>
           <Button className="mt-4 rounded-box transition-colors hover-scale" onClick={handleConfirmBooking}>
             Confirm Booking
           </Button>
@@ -46,3 +48,4 @@ export default function BookingConfirmationPage() {
     </div>
   );
 }
+

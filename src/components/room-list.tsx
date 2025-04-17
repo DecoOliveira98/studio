@@ -15,6 +15,7 @@ import {format} from 'date-fns';
 import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {z} from 'zod';
+import {Label} from '@/components/ui/label';
 
 const bookingFormSchema = z.object({
   date: z.date({
@@ -22,6 +23,7 @@ const bookingFormSchema = z.object({
   }),
   startTime: z.string().optional(),
   endTime: z.string().optional(),
+  numberOfPeople: z.number().min(1, {message: 'Must be at least 1 person.'}).default(1),
 });
 
 export function RoomList() {
@@ -35,6 +37,7 @@ export function RoomList() {
       date: new Date(),
       startTime: '09:00',
       endTime: '17:00',
+      numberOfPeople: 1,
     },
   });
 
@@ -58,7 +61,7 @@ export function RoomList() {
     }
 
     router.push(
-      `/booking-confirmation?name=${selectedRoom.name}&location=${selectedRoom.location}&capacity=${selectedRoom.capacity}&pricePerHour=${selectedRoom.pricePerHour}&amenities=${selectedRoom.amenities.join(', ')}&date=${values.date.toISOString()}&startTime=${values.startTime || '09:00'}&endTime=${values.endTime || '17:00'}`
+      `/booking-confirmation?name=${selectedRoom.name}&location=${selectedRoom.location}&capacity=${selectedRoom.capacity}&pricePerHour=${selectedRoom.pricePerHour}&amenities=${selectedRoom.amenities.join(', ')}&date=${values.date.toISOString()}&startTime=${values.startTime || '09:00'}&endTime=${values.endTime || '17:00'}&numberOfPeople=${values.numberOfPeople}`
     );
   }
 
@@ -168,6 +171,27 @@ export function RoomList() {
                       )}
                     />
                   </div>
+                   <FormField
+                      control={bookingForm.control}
+                      name="numberOfPeople"
+                      render={({field}) => (
+                        <FormItem>
+                          <FormLabel>Number of People</FormLabel>
+                          <FormControl>
+                            <Input
+                              type="number"
+                              className="rounded-box"
+                              placeholder="1"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormDescription>
+                            Specify the number of people for the booking.
+                          </FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
                   <Button type="submit" className="rounded-box transition-colors hover-scale">
                     Book Room
                   </Button>
@@ -180,3 +204,4 @@ export function RoomList() {
     </div>
   );
 }
+
