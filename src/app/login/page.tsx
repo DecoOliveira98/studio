@@ -53,7 +53,7 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-8 bg-secondary">
+    <main className="flex min-h-screen flex-col items-center justify-center p-8">
       <Card className="w-full max-w-md rounded-box shadow-normal transition-colors">
         <CardHeader className="p-4 pb-0">
           <CardTitle className="text-2xl font-semibold text-center">
@@ -101,3 +101,4 @@ export default function LoginPage() {
     </main>
   );
 }
+

@@ -3,7 +3,6 @@
 import {useEffect, useState} from 'react';
 import {getAvailableRooms, Room} from '@/services/room-booking';
 import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
-import {Button} from '@/components/ui/button';
 import Image from 'next/image';
 
 export function RoomList() {
@@ -25,7 +24,7 @@ export function RoomList() {
           <div className="md:flex">
             <div className="md:w-1/3">
               <Image
-                src={`https://picsum.photos/300/200?random=${room.id}`} // Using a random image URL
+                src={`https://picsum.photos/300/200?random=${room.id}`}
                 alt={room.name}
                 width={300}
                 height={200}
@@ -41,7 +40,6 @@ export function RoomList() {
                 <p className="text-sm">Capacity: {room.capacity}</p>
                 <p className="text-sm">Price per hour: ${room.pricePerHour}</p>
                 <p className="text-sm">Amenities: {room.amenities.join(', ')}</p>
-                <Button className="mt-4">Book Now</Button>
               </CardContent>
             </div>
           </div>
@@ -50,3 +48,4 @@ export function RoomList() {
     </div>
   );
 }
+
