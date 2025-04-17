@@ -3,9 +3,15 @@
 import {useSearchParams} from 'next/navigation';
 import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
 import {Button} from '@/components/ui/button';
+import {useEffect, useState} from 'react';
+import {
+  constructBookingConfirmationEmailBody,
+  sendBookingConfirmationEmail,
+} from '@/services/email-service';
 
 export default function BookingConfirmationPage() {
   const searchParams = useSearchParams();
+  const [emailSent, setEmailSent] = useState(false);
 
   const name = searchParams.get('name');
   const location = searchParams.get('location');
@@ -22,10 +28,50 @@ export default function BookingConfirmationPage() {
   const pricePerHour = pricePerHourString ? parseFloat(pricePerHourString) : null;
   const numberOfPeople = numberOfPeopleString ? parseInt(numberOfPeopleString, 10) : null;
 
-  const handleConfirmBooking = () => {
-    alert('Booking confirmed!');
-    // You can add booking logic here, such as calling an API
-    // to save the booking in a database.
+  const handleConfirmBooking = async () => {
+    try {
+      const storedUser = localStorage.getItem('user');
+      if (!storedUser) {
+        alert('No user found. Please log in.');
+        return;
+      }
+
+      const user = JSON.parse(storedUser);
+      const email = user.email;
+
+      if (!email) {
+        alert('No email found for the user.');
+        return;
+      }
+
+      const html = constructBookingConfirmationEmailBody({
+        name,
+        location,
+        capacity,
+        pricePerHour,
+        amenities,
+        date,
+        startTime,
+        endTime,
+        numberOfPeople,
+      });
+
+      if (!html) {
+        alert('Could not construct email body.');
+        return;
+      }
+
+      await sendBookingConfirmationEmail({
+        to: email,
+        subject: 'Booking Confirmation',
+        html: html,
+      });
+
+      setEmailSent(true);
+    } catch (error: any) {
+      console.error('Failed to send email:', error);
+      alert('Failed to send booking confirmation email.');
+    }
   };
 
   return (
@@ -45,13 +91,12 @@ export default function BookingConfirmationPage() {
           <p>Start Time: {startTime}</p>
           <p>End Time: {endTime}</p>
           <p>Number of People: {numberOfPeople}</p>
-          <Button className="mt-4 rounded-box transition-colors hover-scale" onClick={handleConfirmBooking}>
-            Confirm Booking
+          <Button className="mt-4 rounded-box transition-colors hover-scale" onClick={handleConfirmBooking} disabled={emailSent}>
+            {emailSent ? 'Booking Confirmed and Email Sent!' : 'Confirm Booking'}
           </Button>
+          {emailSent && <p className="mt-4 text-green-500">Booking confirmation email sent!</p>}
         </CardContent>
       </Card>
     </div>
   );
 }
-
-
