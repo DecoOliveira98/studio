@@ -20,10 +20,9 @@ import {Textarea} from '@/components/ui/textarea';
 import {Input} from '@/components/ui/input';
 import {Button} from '@/components/ui/button';
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
-import {Label} from '@/components/ui/label';
+import {cn} from '@/lib/utils';
 import {Calendar} from '@/components/ui/calendar';
 import {Popover, PopoverContent, PopoverTrigger} from '@/components/ui/popover';
-import {cn} from '@/lib/utils';
 import {format} from 'date-fns';
 
 const formSchema = z.object({
@@ -38,11 +37,12 @@ const formSchema = z.object({
   date: z.date({
     required_error: 'A date is required.',
   }),
+  startTime: z.string().optional(),
+  endTime: z.string().optional(),
 });
 
 export default function RoomRecommendationPage() {
   const [recommendation, setRecommendation] = useState<string | null>(null);
-  const [isBooking, setIsBooking] = useState(false);
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -53,20 +53,27 @@ export default function RoomRecommendationPage() {
       desiredLevelOfQuietness: '',
       userProfile: '',
       date: new Date(),
+      startTime: '',
+      endTime: '',
     },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const result = await roomRecommendation(values);
     setRecommendation(result.recommendation);
-    setIsBooking(true);
-  }
 
-  const handleBooking = () => {
-    // Implement your booking logic here
-    alert('Booking confirmed!');
-    router.push('/'); // Redirect to home page or booking confirmation page
-  };
+    const roomDetails = result.roomDetails;
+
+    // If we have room details, navigate to the booking confirmation page
+    if (roomDetails) {
+      const startTime = values.startTime || '09:00';
+      const endTime = values.endTime || '17:00';
+
+      router.push(
+        `/booking-confirmation?name=${roomDetails.name}&location=${roomDetails.location}&capacity=${roomDetails.capacity}&pricePerHour=${roomDetails.pricePerHour}&amenities=${roomDetails.amenities}&date=${values.date.toISOString()}&startTime=${startTime}&endTime=${endTime}`
+      );
+    }
+  }
 
   return (
     <div className="flex flex-col items-center justify-start p-8">
@@ -185,6 +192,36 @@ export default function RoomRecommendationPage() {
                   </FormItem>
                 )}
               />
+              <div className="flex space-x-2">
+                <FormField
+                  control={form.control}
+                  name="startTime"
+                  render={({field}) => (
+                    <FormItem>
+                      <FormLabel>Start Time</FormLabel>
+                      <FormControl>
+                        <Input type="time" className="rounded-box" {...field} />
+                      </FormControl>
+                      <FormDescription>Enter the start time.</FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="endTime"
+                  render={({field}) => (
+                    <FormItem>
+                      <FormLabel>End Time</FormLabel>
+                      <FormControl>
+                        <Input type="time" className="rounded-box" {...field} />
+                      </FormControl>
+                      <FormDescription>Enter the end time.</FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
               <Button type="submit" className="rounded-box transition-colors hover-scale">
                 Check Availability
               </Button>
@@ -200,27 +237,6 @@ export default function RoomRecommendationPage() {
           </CardHeader>
           <CardContent>
             <p>{recommendation}</p>
-            {isBooking && (
-              <div className="mt-4">
-                <Label htmlFor="startTime">Start Time</Label>
-                <Input
-                  type="time"
-                  id="startTime"
-                  className="rounded-box mt-2"
-                />
-                <Label htmlFor="endTime" className="mt-4">
-                  End Time
-                </Label>
-                <Input
-                  type="time"
-                  id="endTime"
-                  className="rounded-box mt-2"
-                />
-                <Button className="mt-4 rounded-box transition-colors hover-scale" onClick={handleBooking}>
-                  Book Now
-                </Button>
-              </div>
-            )}
           </CardContent>
         </Card>
       )}
