@@ -53,13 +53,6 @@ export default function LoginPage() {
     }
   };
 
-  const handleOAuthLogin = (provider: string) => {
-    // TODO: Implement actual OAuth login logic here.
-    // This is a placeholder function to simulate OAuth login.
-    alert(`Login with ${provider} clicked! (Simulated)`);
-    window.location.href = '/'; // Redirect to home page
-  };
-
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-8 bg-secondary">
       <Card className="w-full max-w-md rounded-box shadow-normal transition-colors">
@@ -100,25 +93,25 @@ export default function LoginPage() {
             <Button
               variant="outline"
               className="rounded-box transition-colors hover-scale w-full"
-              onClick={() => handleOAuthLogin('Gmail')}
+              onClick={() => alert('Login with Gmail clicked! (Simulated)')}
             >
-              <Icons.gmail className="mr-2 h-4 w-4"/>
+              <Icons.mail className="mr-2 h-4 w-4"/>
               Log In with Gmail
             </Button>
             <Button
               variant="outline"
               className="rounded-box transition-colors hover-scale w-full"
-              onClick={() => handleOAuthLogin('LinkedIn')}
+              onClick={() => alert('Login with LinkedIn clicked! (Simulated)')}
             >
-              <Icons.linkedin className="mr-2 h-4 w-4"/>
+              <Icons.mail className="mr-2 h-4 w-4"/>
               Log In with LinkedIn
             </Button>
             <Button
               variant="outline"
               className="rounded-box transition-colors hover-scale w-full"
-              onClick={() => handleOAuthLogin('Outlook')}
+              onClick={() => alert('Login with Outlook clicked! (Simulated)')}
             >
-              <Icons.outlook className="mr-2 h-4 w-4"/>
+              <Icons.mail className="mr-2 h-4 w-4"/>
               Log In with Outlook
             </Button>
           </div>
