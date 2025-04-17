@@ -27,12 +27,49 @@ body {
     --border: 220 10% 30%;
     --input: 220 10% 30%;
     --ring: 180 65% 45%;
-     --radius: 0.75rem;
-     --sidebar-background: 230 25% 15%;
-     --sidebar-foreground: 220 15% 85%;
-@@ -53,5 +53,4 @@
-     --sidebar-foreground: 220 15% 85%;
-     --sidebar-primary: 160 100% 35%;
- 
--    
-\ No newline at end of file
+    --radius: 0.75rem;
+    --sidebar-background: 230 25% 15%;
+    --sidebar-foreground: 220 15% 85%;
+  }
+
+  .dark {
+    --background: 230 25% 15%;
+    --foreground: 220 15% 85%;
+    --card: 230 25% 15%;
+    --card-foreground: 220 15% 85%;
+    --popover: 230 25% 15%;
+    --popover-foreground: 220 15% 85%;
+    --primary: 160 100% 35%;
+    --primary-foreground: 220 15% 15%;
+    --secondary: 220 15% 25%;
+    --secondary-foreground: 220 15% 85%;
+    --muted: 220 10% 30%;
+    --muted-foreground: 220 10% 60%;
+    --accent: 160 100% 35%;
+    --accent-foreground: 220 15% 15%;
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 220 15% 85%;
+    --border: 220 10% 30%;
+    --input: 220 10% 30%;
+    --ring: 180 65% 45%;
+
+    --sidebar-background: 230 25% 15%;
+    --sidebar-foreground: 220 15% 85%;
+    --sidebar-primary: 160 100% 35%;
+  }
+
+  .radius {
+    border-radius: var(--radius);
+  }
+}
+
+@layer components {
+  .hover-scale {
+    transform: scale(1);
+    transition: transform 0.3s ease;
+  }
+
+  .hover-scale:hover {
+    transform: scale(1.05);
+  }
+}
