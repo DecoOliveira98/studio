@@ -6,6 +6,7 @@ import {Input} from '@/components/ui/input';
 import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
 import {useState} from 'react';
 import {validateStudent} from '@/services/student-validation';
+import {Icons} from '@/components/icons';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -52,6 +53,13 @@ export default function LoginPage() {
     }
   };
 
+  const handleOAuthLogin = (provider: string) => {
+    // TODO: Implement actual OAuth login logic here.
+    // This is a placeholder function to simulate OAuth login.
+    alert(`Login with ${provider} clicked! (Simulated)`);
+    window.location.href = '/'; // Redirect to home page
+  };
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-8 bg-secondary">
       <Card className="w-full max-w-md rounded-box shadow-normal transition-colors">
@@ -88,6 +96,32 @@ export default function LoginPage() {
               You are eligible for a student discount!
             </p>
           )}
+          <div className="mt-4 flex flex-col gap-2 items-center">
+            <Button
+              variant="outline"
+              className="rounded-box transition-colors hover-scale w-full"
+              onClick={() => handleOAuthLogin('Gmail')}
+            >
+              <Icons.gmail className="mr-2 h-4 w-4"/>
+              Log In with Gmail
+            </Button>
+            <Button
+              variant="outline"
+              className="rounded-box transition-colors hover-scale w-full"
+              onClick={() => handleOAuthLogin('LinkedIn')}
+            >
+              <Icons.linkedin className="mr-2 h-4 w-4"/>
+              Log In with LinkedIn
+            </Button>
+            <Button
+              variant="outline"
+              className="rounded-box transition-colors hover-scale w-full"
+              onClick={() => handleOAuthLogin('Outlook')}
+            >
+              <Icons.outlook className="mr-2 h-4 w-4"/>
+              Log In with Outlook
+            </Button>
+          </div>
           <div className="mt-4 text-center">
             <Link
               href="/"
