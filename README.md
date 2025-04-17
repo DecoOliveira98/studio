@@ -1,25 +1,25 @@
 # Firebase Studio
 
-Este projeto é um app desenvolvido com apoio de Inteligência Artificial, como parte de um trabalho acadêmico.
+This project is an app developed with the assistance of Artificial Intelligence (AI), created as part of a college assignment.
 
-## Objetivo
+## Purpose
 
-O objetivo deste repositório é servir como base para um aplicativo utilizando Next.js e Firebase. Ele está sendo utilizado em um projeto da faculdade para fins de aprendizado e demonstração de habilidades em desenvolvimento web moderno.
+The goal of this repository is to serve as a starter for an application using Next.js and Firebase. It is being used in a college project for learning purposes and to demonstrate modern web development skills.
 
-## Tecnologias utilizadas
+## Technologies Used
 
-- **Next.js** – Framework React com suporte a SSR e SSG.
-- **Firebase** – Backend como serviço (autenticação, Firestore, etc).
-- **TypeScript** – Tipagem estática para JavaScript.
-- **Tailwind CSS** – Framework CSS utilitário para estilização.
-- **PostCSS** – Ferramenta de transformação de CSS com plugins modernos.
+- **Next.js** – A React framework with SSR and SSG support.
+- **Firebase** – Backend-as-a-service (authentication, Firestore, etc.).
+- **TypeScript** – Static typing for JavaScript.
+- **Tailwind CSS** – Utility-first CSS framework.
+- **PostCSS** – A tool for transforming CSS with modern plugins.
 
-## Observações
+## Notes
 
-Este projeto **não é um produto final ou comercial**, e foi construído com o auxílio de ferramentas de IA, como parte de um exercício acadêmico.
+This project is **not a final or commercial product**. It was created with the help of AI tools, strictly for academic purposes.
 
-## Instruções para rodar o projeto
+## Getting Started
 
-1. Clone o repositório:
+1. Clone the repository:
    ```bash
    git clone https://github.com/DecoOliveira98/studio.git
