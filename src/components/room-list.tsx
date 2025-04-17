@@ -4,9 +4,39 @@ import {useEffect, useState} from 'react';
 import {getAvailableRooms, Room} from '@/services/room-booking';
 import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
 import Image from 'next/image';
+import {Button} from '@/components/ui/button';
+import {useRouter} from 'next/navigation';
+import {Calendar} from '@/components/ui/calendar';
+import {Popover, PopoverContent, PopoverTrigger} from '@/components/ui/popover';
+import {Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage} from '@/components/ui/form';
+import {Input} from '@/components/ui/input';
+import {cn} from '@/lib/utils';
+import {format} from 'date-fns';
+import {useForm} from 'react-hook-form';
+import {zodResolver} from '@hookform/resolvers/zod';
+import {z} from 'zod';
+
+const bookingFormSchema = z.object({
+  date: z.date({
+    required_error: 'A date is required.',
+  }),
+  startTime: z.string().optional(),
+  endTime: z.string().optional(),
+});
 
 export function RoomList() {
   const [rooms, setRooms] = useState<Room[]>([]);
+  const router = useRouter();
+  const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
+
+  const bookingForm = useForm<z.infer<typeof bookingFormSchema>>({
+    resolver: zodResolver(bookingFormSchema),
+    defaultValues: {
+      date: new Date(),
+      startTime: '09:00',
+      endTime: '17:00',
+    },
+  });
 
   useEffect(() => {
     async function loadRooms() {
@@ -16,6 +46,21 @@ export function RoomList() {
 
     loadRooms();
   }, []);
+
+  const handleBookRoom = (room: Room) => {
+    setSelectedRoom(room);
+  };
+
+  async function onSubmit(values: z.infer<typeof bookingFormSchema>) {
+    if (!selectedRoom) {
+      alert('Please select a room.');
+      return;
+    }
+
+    router.push(
+      `/booking-confirmation?name=${selectedRoom.name}&location=${selectedRoom.location}&capacity=${selectedRoom.capacity}&pricePerHour=${selectedRoom.pricePerHour}&amenities=${selectedRoom.amenities.join(', ')}&date=${values.date.toISOString()}&startTime=${values.startTime || '09:00'}&endTime=${values.endTime || '17:00'}`
+    );
+  }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -40,12 +85,98 @@ export function RoomList() {
                 <p className="text-sm">Capacity: {room.capacity}</p>
                 <p className="text-sm">Amenities: {room.amenities.join(', ')}</p>
                 <p className="text-sm">Price per hour: ${room.pricePerHour}</p>
+                <Button onClick={() => handleBookRoom(room)}>Check Availability</Button>
               </CardContent>
             </div>
           </div>
+          {selectedRoom?.id === room.id && (
+            <CardContent className="p-4">
+              <Form {...bookingForm}>
+                <form onSubmit={bookingForm.handleSubmit(onSubmit)} className="space-y-4">
+                  <FormField
+                    control={bookingForm.control}
+                    name="date"
+                    render={({field}) => (
+                      <FormItem className="flex flex-col space-y-3">
+                        <FormLabel>Date</FormLabel>
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <FormControl>
+                              <Button
+                                variant={'outline'}
+                                className={cn(
+                                  'w-[240px] pl-3 text-left font-normal',
+                                  !field.value && 'text-muted-foreground'
+                                )}
+                              >
+                                {field.value ? (
+                                  format(field.value, 'PPP')
+                                ) : (
+                                  <span>Pick a date</span>
+                                )}
+                              </Button>
+                            </FormControl>
+                          </PopoverTrigger>
+                          <PopoverContent
+                            className="w-auto p-0"
+                            align="start"
+                            side="bottom"
+                          >
+                            <Calendar
+                              mode="single"
+                              selected={field.value}
+                              onSelect={field.onChange}
+                              disabled={false}
+                              initialFocus
+                            />
+                          </PopoverContent>
+                        </Popover>
+                        <FormDescription>
+                          Please select the date for your booking.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <div className="flex space-x-2">
+                    <FormField
+                      control={bookingForm.control}
+                      name="startTime"
+                      render={({field}) => (
+                        <FormItem>
+                          <FormLabel>Start Time</FormLabel>
+                          <FormControl>
+                            <Input type="time" className="rounded-box" {...field} />
+                          </FormControl>
+                          <FormDescription>Enter the start time.</FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={bookingForm.control}
+                      name="endTime"
+                      render={({field}) => (
+                        <FormItem>
+                          <FormLabel>End Time</FormLabel>
+                          <FormControl>
+                            <Input type="time" className="rounded-box" {...field} />
+                          </FormControl>
+                          <FormDescription>Enter the end time.</FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <Button type="submit" className="rounded-box transition-colors hover-scale">
+                    Book Room
+                  </Button>
+                </form>
+              </Form>
+            </CardContent>
+          )}
         </Card>
       ))}
     </div>
   );
 }
-

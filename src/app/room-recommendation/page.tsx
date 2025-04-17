@@ -4,7 +4,6 @@ import {useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {z} from 'zod';
-import {useRouter} from 'next/navigation';
 
 import {roomRecommendation} from '@/ai/flows/room-recommendation';
 import {
@@ -20,10 +19,6 @@ import {Textarea} from '@/components/ui/textarea';
 import {Input} from '@/components/ui/input';
 import {Button} from '@/components/ui/button';
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
-import {cn} from '@/lib/utils';
-import {Calendar} from '@/components/ui/calendar';
-import {Popover, PopoverContent, PopoverTrigger} from '@/components/ui/popover';
-import {format} from 'date-fns';
 
 const formSchema = z.object({
   preferredLocation: z.string().min(2, {
@@ -34,16 +29,10 @@ const formSchema = z.object({
     message: 'Desired level of quietness must be at least 2 characters.',
   }),
   userProfile: z.string().optional(),
-  date: z.date({
-    required_error: 'A date is required.',
-  }),
-  startTime: z.string().optional(),
-  endTime: z.string().optional(),
 });
 
 export default function RoomRecommendationPage() {
   const [recommendation, setRecommendation] = useState<string | null>(null);
-  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -52,27 +41,12 @@ export default function RoomRecommendationPage() {
       amenities: '',
       desiredLevelOfQuietness: '',
       userProfile: '',
-      date: new Date(),
-      startTime: '',
-      endTime: '',
     },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const result = await roomRecommendation(values);
     setRecommendation(result.recommendation);
-
-    const roomDetails = result.roomDetails;
-
-    // If we have room details, navigate to the booking confirmation page
-    if (roomDetails) {
-      const startTime = values.startTime || '09:00';
-      const endTime = values.endTime || '17:00';
-
-      router.push(
-        `/booking-confirmation?name=${roomDetails.name}&location=${roomDetails.location}&capacity=${roomDetails.capacity}&pricePerHour=${roomDetails.pricePerHour}&amenities=${roomDetails.amenities}&date=${values.date.toISOString()}&startTime=${startTime}&endTime=${endTime}`
-      );
-    }
   }
 
   return (
@@ -147,81 +121,6 @@ export default function RoomRecommendationPage() {
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="date"
-                render={({field}) => (
-                  <FormItem className="flex flex-col space-y-3">
-                    <FormLabel>Date</FormLabel>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant={'outline'}
-                            className={cn(
-                              'w-[240px] pl-3 text-left font-normal',
-                              !field.value && 'text-muted-foreground'
-                            )}
-                          >
-                            {field.value ? (
-                              format(field.value, 'PPP')
-                            ) : (
-                              <span>Pick a date</span>
-                            )}
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent
-                        className="w-auto p-0"
-                        align="start"
-                        side="bottom"
-                      >
-                        <Calendar
-                          mode="single"
-                          selected={field.value}
-                          onSelect={field.onChange}
-                          disabled={false}
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
-                    <FormDescription>
-                      Please select the date for your booking.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <div className="flex space-x-2">
-                <FormField
-                  control={form.control}
-                  name="startTime"
-                  render={({field}) => (
-                    <FormItem>
-                      <FormLabel>Start Time</FormLabel>
-                      <FormControl>
-                        <Input type="time" className="rounded-box" {...field} />
-                      </FormControl>
-                      <FormDescription>Enter the start time.</FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="endTime"
-                  render={({field}) => (
-                    <FormItem>
-                      <FormLabel>End Time</FormLabel>
-                      <FormControl>
-                        <Input type="time" className="rounded-box" {...field} />
-                      </FormControl>
-                      <FormDescription>Enter the end time.</FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
               <Button type="submit" className="rounded-box transition-colors hover-scale">
                 Check Availability
               </Button>
