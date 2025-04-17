@@ -66,7 +66,7 @@ export async function constructBookingConfirmationEmailBody({
       <li>Name: ${name}</li>
       <li>Location: ${location}</li>
       <li>Capacity: ${capacity}</li>
-      <li>Price per hour: ${pricePerHour}</li>
+      <li>Price per person: ${pricePerHour}</li>
       <li>Amenities: ${amenities}</li>
       <li>Date: ${date}</li>
       <li>Start Time: ${startTime}</li>
@@ -75,3 +75,4 @@ export async function constructBookingConfirmationEmailBody({
     </ul>
   `;
 }
+

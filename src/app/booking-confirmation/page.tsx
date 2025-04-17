@@ -28,6 +28,8 @@ export default function BookingConfirmationPage() {
   const pricePerHour = pricePerHourString ? parseFloat(pricePerHourString) : null;
   const numberOfPeople = numberOfPeopleString ? parseInt(numberOfPeopleString, 10) : null;
 
+  const pricePerPerson = capacity && pricePerHour ? (pricePerHour / capacity) : 0;
+
   const handleConfirmBooking = async () => {
     try {
       const storedUser = localStorage.getItem('user');
@@ -44,11 +46,15 @@ export default function BookingConfirmationPage() {
         return;
       }
 
+      // Simulate payment processing
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      alert('Payment processed successfully!');
+
       const html = constructBookingConfirmationEmailBody({
         name,
         location,
         capacity,
-        pricePerHour,
+        pricePerHour: pricePerPerson,
         amenities,
         date,
         startTime,
@@ -85,7 +91,7 @@ export default function BookingConfirmationPage() {
           <p>Name: {name}</p>
           <p>Location: {location}</p>
           <p>Capacity: {capacity}</p>
-          <p>Price per hour: {pricePerHour}</p>
+          <p>Price per person: ${pricePerPerson.toFixed(2)}</p>
           <p>Amenities: {amenities}</p>
           <p>Date: {date}</p>
           <p>Start Time: {startTime}</p>
@@ -100,3 +106,4 @@ export default function BookingConfirmationPage() {
     </div>
   );
 }
+
