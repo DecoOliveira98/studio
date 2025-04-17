@@ -9,13 +9,18 @@ export default function BookingConfirmationPage() {
 
   const name = searchParams.get('name');
   const location = searchParams.get('location');
-  const capacity = searchParams.get('capacity');
-  const pricePerHour = searchParams.get('pricePerHour');
+  const capacityString = searchParams.get('capacity');
+  const pricePerHourString = searchParams.get('pricePerHour');
   const amenities = searchParams.get('amenities');
   const date = searchParams.get('date');
   const startTime = searchParams.get('startTime');
   const endTime = searchParams.get('endTime');
-  const numberOfPeople = searchParams.get('numberOfPeople');
+  const numberOfPeopleString = searchParams.get('numberOfPeople');
+
+  // Convert to number
+  const capacity = capacityString ? parseInt(capacityString, 10) : null;
+  const pricePerHour = pricePerHourString ? parseFloat(pricePerHourString) : null;
+  const numberOfPeople = numberOfPeopleString ? parseInt(numberOfPeopleString, 10) : null;
 
   const handleConfirmBooking = () => {
     alert('Booking confirmed!');
@@ -48,4 +53,5 @@ export default function BookingConfirmationPage() {
     </div>
   );
 }
+
 
