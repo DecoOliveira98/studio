@@ -38,8 +38,8 @@ export function RoomList() {
               </CardHeader>
               <CardContent className="p-4">
                 <p className="text-sm">Capacity: {room.capacity}</p>
-                <p className="text-sm">Price per hour: ${room.pricePerHour}</p>
                 <p className="text-sm">Amenities: {room.amenities.join(', ')}</p>
+                <p className="text-sm">Price per hour: ${room.pricePerHour}</p>
               </CardContent>
             </div>
           </div>
