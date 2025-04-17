@@ -80,32 +80,6 @@ export default function SignUpPage() {
           {signUpError && (
             <p className="mt-4 text-center text-red-500">{signUpError}</p>
           )}
-           <div className="mt-4 flex flex-col gap-2 items-center">
-            <Button
-              variant="outline"
-              className="rounded-box transition-colors hover-scale w-full"
-              onClick={() => alert('Login with Gmail clicked! (Simulated)')}
-            >
-              <Icons.mail className="mr-2 h-4 w-4"/>
-              Sign Up with Gmail
-            </Button>
-            <Button
-              variant="outline"
-              className="rounded-box transition-colors hover-scale w-full"
-              onClick={() => alert('Login with LinkedIn clicked! (Simulated)')}
-            >
-              <Icons.mail className="mr-2 h-4 w-4"/>
-              Sign Up with LinkedIn
-            </Button>
-            <Button
-              variant="outline"
-              className="rounded-box transition-colors hover-scale w-full"
-              onClick={() => alert('Login with Outlook clicked! (Simulated)')}
-            >
-              <Icons.mail className="mr-2 h-4 w-4"/>
-              Sign Up with Outlook
-            </Button>
-          </div>
           <div className="mt-4 text-center">
             <Link
               href="/"
