@@ -103,6 +103,22 @@ export async function getAvailableRooms(): Promise<Room[]> {
       capacity: 12,
       pricePerHour: 60,
     },
+    {
+      id: '6',
+      name: 'Coffee Shop Nook',
+      location: 'Georges Street Arcade',
+      amenities: ['Wifi', 'Coffee', 'Pastries'],
+      capacity: 2,
+      pricePerHour: 5,
+    },
+    {
+      id: '7',
+      name: 'The Coffee Pod',
+      location: 'Grafton Street',
+      amenities: ['Wifi', 'Coffee', 'Snacks'],
+      capacity: 3,
+      pricePerHour: 7,
+    },
   ];
 }
 
@@ -131,4 +147,3 @@ export async function bookRoom(
     userId: userId,
   };
 }
-
