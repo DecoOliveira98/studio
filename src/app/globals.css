@@ -4,68 +4,68 @@
 @tailwind utilities;
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 @layer base {
   :root {
-    --background: 240 10% 3.9%; /* A dark, slightly desaturated blue */
-    --foreground: 210 20% 98%; /* Light gray, almost white */
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 142 90% 62%; /* A vibrant, electric lime green */
-    --primary-foreground: 222.2 47.4% 11.2%; /* Near black */
-    --secondary: 255 25% 40%; /* A medium, slightly desaturated blue */
-    --secondary-foreground: 210 40% 98%; /* Light gray, almost white */
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 217.2 91.2% 59.8%;
-    --radius: 0.5rem;
-    --sidebar-background: 222.2 84% 4.9%;
-    --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 210 40% 98%;
-    --sidebar-accent: 217.2 32.6% 17.5%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 217.2 32.6% 17.5%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --background: 230 25% 15%; /* Dark desaturated blue-gray */
+    --foreground: 220 15% 85%; /* Light gray */
+    --card: 230 25% 15%;
+    --card-foreground: 220 15% 85%;
+    --popover: 230 25% 15%;
+    --popover-foreground: 220 15% 85%;
+    --primary: 160 100% 35%; /* Calm green */
+    --primary-foreground: 220 15% 15%;
+    --secondary: 220 15% 25%; /* Slightly lighter gray */
+    --secondary-foreground: 220 15% 85%;
+    --muted: 220 10% 30%;
+    --muted-foreground: 220 10% 60%;
+    --accent: 160 100% 35%; /* Calm green */
+    --accent-foreground: 220 15% 15%;
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 220 15% 85%;
+    --border: 220 10% 30%;
+    --input: 220 10% 30%;
+    --ring: 160 100% 35%;
+    --radius: 0.75rem;
+    --sidebar-background: 230 25% 15%;
+    --sidebar-foreground: 220 15% 85%;
+    --sidebar-primary: 160 100% 35%;
+    --sidebar-primary-foreground: 220 15% 15%;
+    --sidebar-accent: 160 100% 35%;
+    --sidebar-accent-foreground: 220 15% 85%;
+    --sidebar-border: 220 10% 30%;
+    --sidebar-ring: 160 100% 35%;
   }
   .dark {
-    --background: 240 10% 3.9%; /* A dark, slightly desaturated blue */
-    --foreground: 210 20% 98%; /* Light gray, almost white */
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 142 90% 62%; /* A vibrant, electric lime green */
-    --primary-foreground: 222.2 47.4% 11.2%; /* Near black */
-    --secondary: 255 25% 40%; /* A medium, slightly desaturated blue */
-    --secondary-foreground: 210 40% 98%; /* Light gray, almost white */
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 217.2 91.2% 59.8%;
-    --sidebar-background: 222.2 84% 4.9%;
-    --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 210 40% 98%;
-    --sidebar-accent: 217.2 32.6% 17.5%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 217.2 32.6% 17.5%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --background: 230 25% 15%; /* Dark desaturated blue-gray */
+    --foreground: 220 15% 85%; /* Light gray */
+    --card: 230 25% 15%;
+    --card-foreground: 220 15% 85%;
+    --popover: 230 25% 15%;
+    --popover-foreground: 220 15% 85%;
+    --primary: 160 100% 35%; /* Calm green */
+    --primary-foreground: 220 15% 15%;
+    --secondary: 220 15% 25%; /* Slightly lighter gray */
+    --secondary-foreground: 220 15% 85%;
+    --muted: 220 10% 30%;
+    --muted-foreground: 220 10% 60%;
+    --accent: 160 100% 35%; /* Calm green */
+    --accent-foreground: 220 15% 15%;
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 220 15% 85%;
+    --border: 220 10% 30%;
+    --input: 220 10% 30%;
+    --ring: 160 100% 35%;
+    --sidebar-background: 230 25% 15%;
+    --sidebar-foreground: 220 15% 85%;
+    --sidebar-primary: 160 100% 35%;
+    --sidebar-primary-foreground: 220 15% 15%;
+    --sidebar-accent: 160 100% 35%;
+    --sidebar-accent-foreground: 220 15% 85%;
+    --sidebar-border: 220 10% 30%;
+    --sidebar-ring: 160 100% 35%;
   }
 }
 
@@ -78,3 +78,29 @@ body {
   }
 }
 
+/* Transitions and animations */
+.transition-colors {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.hover-scale {
+  transition: transform 0.2s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+/* Rounded corners */
+.rounded-box {
+  border-radius: var(--radius);
+}
+
+/* Shadows */
+.shadow-normal {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.drop-shadow-normal {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
