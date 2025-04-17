@@ -5,13 +5,11 @@ import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
 import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
 import {useState} from 'react';
-import {validateStudent} from '@/services/student-validation';
 
-export default function LoginPage() {
+export default function SignUpPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isStudent, setIsStudent] = useState(false);
-  const [loginError, setLoginError] = useState<string | null>(null);
+  const [signUpError, setSignUpError] = useState<string | null>(null);
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -23,31 +21,29 @@ export default function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoginError(null);
+    setSignUpError(null);
 
     try {
       // Basic email format check
       if (!email.includes('@')) {
-        setLoginError('Please enter a valid email address.');
+        setSignUpError('Please enter a valid email address.');
         return;
       }
 
-      const isValidStudent = await validateStudent(email);
-      setIsStudent(isValidStudent);
-
       // TODO: Implement actual authentication logic here.
-      // For now, just set isLoggedIn to true upon "successful" login.
-      // In a real app, you would verify the password and handle user sessions.
+      // For now, just set isLoggedIn to true upon "successful" sign up.
+      // In a real app, you would hash the password and handle user sessions.
 
-      //Simulate login success
-      if (password === 'password') {
-        window.location.href = '/'; //Redirect to home page
+      // Simulate sign up success
+      if (password.length >= 8) {
+        alert('Sign up successful! (Simulated)'); // Replace with actual logic
+        window.location.href = '/'; // Redirect to home page
       } else {
-        setLoginError('Invalid credentials.');
+        setSignUpError('Password must be at least 8 characters long.');
       }
     } catch (error: any) {
-      setLoginError(
-        error.message || 'An error occurred while attempting to log in.'
+      setSignUpError(
+        error.message || 'An error occurred while attempting to sign up.'
       );
     }
   };
@@ -57,14 +53,14 @@ export default function LoginPage() {
       <Card className="w-full max-w-md rounded-box shadow-normal transition-colors">
         <CardHeader className="p-4 pb-0">
           <CardTitle className="text-2xl font-semibold text-center">
-            Log In
+            Sign Up
           </CardTitle>
         </CardHeader>
         <CardContent className="p-6">
           <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
             <Input
               type="email"
-              placeholder="Student Email"
+              placeholder="Email"
               className="rounded-box"
               value={email}
               onChange={handleEmailChange}
@@ -77,16 +73,11 @@ export default function LoginPage() {
               onChange={handlePasswordChange}
             />
             <Button type="submit" className="rounded-box transition-colors hover-scale">
-              Log In
+              Sign Up
             </Button>
           </form>
-          {loginError && (
-            <p className="mt-4 text-center text-red-500">{loginError}</p>
-          )}
-          {isStudent && (
-            <p className="mt-4 text-center text-green-500">
-              You are eligible for a student discount!
-            </p>
+          {signUpError && (
+            <p className="mt-4 text-center text-red-500">{signUpError}</p>
           )}
           <div className="mt-4 text-center">
             <Link
@@ -95,15 +86,6 @@ export default function LoginPage() {
             >
               Back to Home
             </Link>
-            <p className="mt-2">
-              Don't have an account?{' '}
-              <Link
-                href="/sign-up"
-                className="text-primary hover:underline transition-colors"
-              >
-                Sign Up
-              </Link>
-            </p>
           </div>
         </CardContent>
       </Card>
