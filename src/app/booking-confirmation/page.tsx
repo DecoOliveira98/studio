@@ -50,7 +50,7 @@ export default function BookingConfirmationPage() {
       await new Promise(resolve => setTimeout(resolve, 2000));
       alert('Payment processed successfully!');
 
-      const html = constructBookingConfirmationEmailBody({
+      const html = await constructBookingConfirmationEmailBody({
         name,
         location,
         capacity,
@@ -106,4 +106,5 @@ export default function BookingConfirmationPage() {
     </div>
   );
 }
+
 
