@@ -9,16 +9,16 @@ body {
 
 @layer base {
   :root {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 240 10% 3.9%; /* A dark, slightly desaturated blue */
+    --foreground: 210 20% 98%; /* Light gray, almost white */
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 197 76% 50%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --primary: 142 90% 62%; /* A vibrant, electric lime green */
+    --primary-foreground: 222.2 47.4% 11.2%; /* Near black */
+    --secondary: 255 25% 40%; /* A medium, slightly desaturated blue */
+    --secondary-foreground: 210 40% 98%; /* Light gray, almost white */
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
     --accent: 217.2 32.6% 17.5%;
@@ -39,16 +39,16 @@ body {
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 240 10% 3.9%; /* A dark, slightly desaturated blue */
+    --foreground: 210 20% 98%; /* Light gray, almost white */
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 197 76% 50%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --primary: 142 90% 62%; /* A vibrant, electric lime green */
+    --primary-foreground: 222.2 47.4% 11.2%; /* Near black */
+    --secondary: 255 25% 40%; /* A medium, slightly desaturated blue */
+    --secondary-foreground: 210 40% 98%; /* Light gray, almost white */
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
     --accent: 217.2 32.6% 17.5%;
@@ -77,3 +77,4 @@ body {
     @apply bg-background text-foreground;
   }
 }
+

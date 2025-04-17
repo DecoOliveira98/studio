@@ -1,3 +1,4 @@
+
 /**
  * Represents a room in Dublin.
  */
@@ -78,6 +79,30 @@ export async function getAvailableRooms(): Promise<Room[]> {
       capacity: 4,
       pricePerHour: 20,
     },
+    {
+      id: '3',
+      name: 'Innovation Lab',
+      location: 'Docklands',
+      amenities: ['Interactive Whiteboard', 'VR Headsets', '3D Printer', 'High-Speed Wifi'],
+      capacity: 15,
+      pricePerHour: 75,
+    },
+    {
+      id: '4',
+      name: 'Quiet Zone 42',
+      location: 'National Library',
+      amenities: ['Soundproof Walls', 'Individual Desks', 'Reading Lamps'],
+      capacity: 6,
+      pricePerHour: 30,
+    },
+    {
+      id: '5',
+      name: 'Brainstorming Suite',
+      location: 'Guinness Storehouse Area',
+      amenities: ['Large Tables', 'Markers', 'Idea Paint Walls', 'Coffee Machine'],
+      capacity: 12,
+      pricePerHour: 60,
+    },
   ];
 }
 
@@ -106,3 +131,4 @@ export async function bookRoom(
     userId: userId,
   };
 }
+
