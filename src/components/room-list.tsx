@@ -87,7 +87,10 @@ export function RoomList() {
               <CardContent className="p-4">
                 <p className="text-sm">Capacity: {room.capacity}</p>
                 <p className="text-sm">Amenities: {room.amenities.join(', ')}</p>
-                <p className="text-sm">Price per hour: ${room.pricePerHour}</p>
+                <p className="text-sm">
+                  Price per person: $
+                  {room.capacity ? (room.pricePerHour / room.capacity).toFixed(2) : '20.00'}
+                </p>
                 <Button onClick={() => handleBookRoom(room)}>Check Availability</Button>
               </CardContent>
             </div>
