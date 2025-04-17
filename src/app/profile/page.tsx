@@ -16,6 +16,7 @@ interface User {
   profilePicture?: string;
   age?: number;
   bio?: string;
+  course?: string;
 }
 
 export default function ProfilePage() {
@@ -25,6 +26,7 @@ export default function ProfilePage() {
   const [profilePicture, setProfilePicture] = useState('');
   const [age, setAge] = useState<number | undefined>(undefined);
   const [bio, setBio] = useState('');
+  const [course, setCourse] = useState('');
   const router = useRouter();
 
   useEffect(() => {
@@ -37,6 +39,7 @@ export default function ProfilePage() {
       setProfilePicture(parsedUser.profilePicture || '');
       setAge(parsedUser.age || undefined);
       setBio(parsedUser.bio || '');
+      setCourse(parsedUser.course || '');
     } else {
       router.push('/login');
     }
@@ -63,6 +66,10 @@ export default function ProfilePage() {
     setBio(e.target.value);
   };
 
+  const handleCourseChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCourse(e.target.value);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -79,6 +86,7 @@ export default function ProfilePage() {
       profilePicture: profilePicture,
       age: age,
       bio: bio,
+      course: course,
     };
     localStorage.setItem('user', JSON.stringify(updatedUser));
     setUser(updatedUser);
@@ -126,6 +134,17 @@ export default function ProfilePage() {
                 className="rounded-box"
                 value={college}
                 onChange={handleCollegeChange}
+              />
+            </div>
+            <div className="grid w-full max-w-sm items-center gap-1.5">
+              <Label htmlFor="course">Course</Label>
+              <Input
+                type="text"
+                id="course"
+                placeholder="Course"
+                className="rounded-box"
+                value={course}
+                onChange={handleCourseChange}
               />
             </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
