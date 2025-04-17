@@ -37,7 +37,7 @@ export async function sendBookingConfirmationEmail({
   }
 }
 
-export function constructBookingConfirmationEmailBody({
+export async function constructBookingConfirmationEmailBody({
   name,
   location,
   capacity,
@@ -57,7 +57,7 @@ export function constructBookingConfirmationEmailBody({
   startTime: string | null;
   endTime: string | null;
   numberOfPeople: number | null;
-}): string {
+}): Promise<string> {
   return `
     <h1>Booking Confirmation</h1>
     <p>Thank you for your booking!</p>
