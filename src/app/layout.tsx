@@ -2,7 +2,7 @@ import type {Metadata} from 'next';
 import {Geist, Geist_Mono} from 'next/font/google';
 import './globals.css';
 import {Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupLabel, SidebarHeader, SidebarInset, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarTrigger} from '@/components/ui/sidebar';
-import {Home, Settings} from 'lucide-react';
+import {Home, Settings, User} from 'lucide-react';
 import {Button} from '@/components/ui/button';
 import Link from 'next/link';
 import {ClientSideLayout} from '@/components/client-side-layout';
@@ -57,6 +57,14 @@ export default function RootLayout({
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton asChild>
+                      <Link href="/profile">
+                        <User className="mr-2 h-4 w-4" />
+                        <span>My Profile</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
                 </SidebarMenu>
               </SidebarGroup>
             </SidebarContent>
@@ -72,4 +80,5 @@ export default function RootLayout({
     </html>
   );
 }
+
 
