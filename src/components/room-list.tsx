@@ -23,7 +23,7 @@ const bookingFormSchema = z.object({
   }),
   startTime: z.string().optional(),
   endTime: z.string().optional(),
-  numberOfPeople: z.number().min(1, {message: 'Must be at least 1 person.'}).default(1),
+  numberOfPeople: z.string().transform(Number).refine((value) => value > 0, {message: 'Must be at least 1 person.'}).default('1'),
 });
 
 export function RoomList() {
@@ -37,7 +37,7 @@ export function RoomList() {
       date: new Date(),
       startTime: '09:00',
       endTime: '17:00',
-      numberOfPeople: 1,
+      numberOfPeople: '1',
     },
   });
 
