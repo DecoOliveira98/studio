@@ -2,12 +2,29 @@
 
 import Link from 'next/link';
 import {RoomList} from '@/components/room-list';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {Button} from '@/components/ui/button';
 import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
+import {useRouter} from 'next/navigation';
 
 export default function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    const storedIsLoggedIn = localStorage.getItem('isLoggedIn');
+    if (storedIsLoggedIn === 'true') {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('isLoggedIn');
+    setIsLoggedIn(false);
+    router.push('/login');
+  };
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-8 bg-secondary">
@@ -27,6 +44,12 @@ export default function Home() {
                     Get a Room Recommendation
                   </Button>
                 </Link>
+                <Button
+                  className="rounded-box transition-colors hover-scale ml-4"
+                  onClick={handleLogout}
+                >
+                  Log Out
+                </Button>
               </div>
             </>
           ) : (

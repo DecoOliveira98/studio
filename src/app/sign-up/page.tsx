@@ -5,12 +5,13 @@ import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
 import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
 import {useState} from 'react';
-import { Icons } from '@/components/icons';
+import {useRouter} from 'next/navigation';
 
 export default function SignUpPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [signUpError, setSignUpError] = useState<string | null>(null);
+  const router = useRouter();
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -25,23 +26,24 @@ export default function SignUpPage() {
     setSignUpError(null);
 
     try {
-      // Basic email format check
       if (!email.includes('@')) {
         setSignUpError('Please enter a valid email address.');
         return;
       }
 
-      // TODO: Implement actual authentication logic here.
-      // For now, just set isLoggedIn to true upon "successful" sign up.
-      // In a real app, you would hash the password and handle user sessions.
-
-      // Simulate sign up success
-      if (password.length >= 8) {
-        alert('Sign up successful! (Simulated)'); // Replace with actual logic
-        window.location.href = '/'; // Redirect to home page
-      } else {
+      if (password.length < 8) {
         setSignUpError('Password must be at least 8 characters long.');
+        return;
       }
+
+      const user = {
+        email: email,
+        password: password,
+      };
+      localStorage.setItem('user', JSON.stringify(user));
+
+      localStorage.setItem('isLoggedIn', 'true');
+      router.push('/');
     } catch (error: any) {
       setSignUpError(
         error.message || 'An error occurred while attempting to sign up.'
@@ -93,4 +95,3 @@ export default function SignUpPage() {
     </main>
   );
 }
-

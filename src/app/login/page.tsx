@@ -6,13 +6,14 @@ import {Input} from '@/components/ui/input';
 import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
 import {useState} from 'react';
 import {validateStudent} from '@/services/student-validation';
-import {Icons} from '@/components/icons';
+import {useRouter} from 'next/navigation';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isStudent, setIsStudent] = useState(false);
   const [loginError, setLoginError] = useState<string | null>(null);
+  const router = useRouter();
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -27,25 +28,23 @@ export default function LoginPage() {
     setLoginError(null);
 
     try {
-      // Basic email format check
-      if (!email.includes('@')) {
-        setLoginError('Please enter a valid email address.');
+      const storedUser = localStorage.getItem('user');
+      if (!storedUser) {
+        setLoginError('No account found. Please sign up.');
+        return;
+      }
+
+      const user = JSON.parse(storedUser);
+      if (user.email !== email || user.password !== password) {
+        setLoginError('Invalid credentials.');
         return;
       }
 
       const isValidStudent = await validateStudent(email);
       setIsStudent(isValidStudent);
 
-      // TODO: Implement actual authentication logic here.
-      // For now, just set isLoggedIn to true upon "successful" login.
-      // In a real app, you would verify the password and handle user sessions.
-
-      //Simulate login success
-      if (password === 'password') {
-        window.location.href = '/'; //Redirect to home page
-      } else {
-        setLoginError('Invalid credentials.');
-      }
+      localStorage.setItem('isLoggedIn', 'true');
+      router.push('/');
     } catch (error: any) {
       setLoginError(
         error.message || 'An error occurred while attempting to log in.'
@@ -91,24 +90,14 @@ export default function LoginPage() {
           )}
           <div className="mt-4 text-center">
             <Link
-              href="/"
+              href="/sign-up"
               className="text-primary hover:underline transition-colors"
             >
-              Back to Home
+              Sign Up
             </Link>
-            <p className="mt-2">
-              Don't have an account?{' '}
-              <Link
-                href="/sign-up"
-                className="text-primary hover:underline transition-colors"
-              >
-                Sign Up
-              </Link>
-            </p>
           </div>
         </CardContent>
       </Card>
     </main>
   );
 }
-
