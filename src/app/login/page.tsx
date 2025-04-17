@@ -13,6 +13,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [isStudent, setIsStudent] = useState(false);
   const [loginError, setLoginError] = useState<string | null>(null);
+  const [college, setCollege] = useState<string | null>(null);
   const router = useRouter();
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,6 +45,7 @@ export default function LoginPage() {
       setIsStudent(isValidStudent);
 
       localStorage.setItem('isLoggedIn', 'true');
+      setCollege(user.college);
       router.push('/');
     } catch (error: any) {
       setLoginError(
@@ -86,6 +88,11 @@ export default function LoginPage() {
           {isStudent && (
             <p className="mt-4 text-center text-green-500">
               You are eligible for a student discount!
+            </p>
+          )}
+          {college && (
+            <p className="mt-4 text-center text-blue-500">
+              College: {college}
             </p>
           )}
           <div className="mt-4 text-center">

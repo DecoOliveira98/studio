@@ -10,6 +10,7 @@ import {useRouter} from 'next/navigation';
 export default function SignUpPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [college, setCollege] = useState('');
   const [signUpError, setSignUpError] = useState<string | null>(null);
   const router = useRouter();
 
@@ -19,6 +20,10 @@ export default function SignUpPage() {
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
+  };
+
+  const handleCollegeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCollege(e.target.value);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -39,6 +44,7 @@ export default function SignUpPage() {
       const user = {
         email: email,
         password: password,
+        college: college,
       };
       localStorage.setItem('user', JSON.stringify(user));
 
@@ -74,6 +80,13 @@ export default function SignUpPage() {
               className="rounded-box"
               value={password}
               onChange={handlePasswordChange}
+            />
+            <Input
+              type="text"
+              placeholder="College"
+              className="rounded-box"
+              value={college}
+              onChange={handleCollegeChange}
             />
             <Button type="submit" className="rounded-box transition-colors hover-scale">
               Sign Up
